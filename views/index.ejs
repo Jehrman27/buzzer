@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="app.css" />
+    <title>Game Show Buzzer</title>
+  </head>
+  <body>
+    <div class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-half is-offset-one-quarter">
+            <div class="card">
+              <div class="card-header has-background-purple">
+                <p class="card-header-title">Jehr's Snazzy Game Buzzer!</p>
+              </div>
+              <div class="columns">
+                <div class="column has-text-centered">
+                  <div class="card-content has-background-link-light">
+                    <div class="content">
+                      <label for="username" class="is-size-6">Name:</label>
+                      <input type="text" id="username" name="username" />
+                      <div class="is-full">
+                        <button
+                          id="buzzBtn"
+                          class="button is-success is-rounded is-large m-5"
+                        >
+                          Buzz
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script>
+    const socket = io();
+
+    const buzz = document.getElementById("buzzBtn");
+    const username = document.getElementById("username");
+
+    buzz.addEventListener("click", (e) => {
+      // when buzzer is clicked disable button and emit username to server
+      e.preventDefault();
+      buzz.disabled = true;
+      socket.emit("buzz", username.value);
+    });
+
+    socket.on("reset", () => {
+      // listen for reset from server
+      // re-enable button
+      buzz.disabled = false;
+    });
+  </script>
+</html>

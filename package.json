@@ -1,0 +1,22 @@
+{
+  "name": "buzzer",
+  "version": "1.0.0",
+  "description": "Game Show Buzzer",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonathan Ehrmantraut",
+  "license": "ISC",
+  "dependencies": {
+    "bulma": "^0.9.4",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
+    "interface-addresses": "^0.0.4",
+    "path": "^0.12.7",
+    "play-sound": "^1.1.5",
+    "socket.io": "^4.7.1",
+    "sound-play": "^1.1.0"
+  }
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="app.css" />
+    <title>Game Show Buzzer Host</title>
+  </head>
+  <body>
+    <div class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-half is-offset-one-quarter">
+            <div class="card has-background-link-light">
+              <div class="card-header">
+                <p class="card-header-title">Jehr's Snazzy Game Buzzer!</p>
+              </div>
+              <div class="columns">
+                <div class="column has-text-centered">
+                  <div class="card-content">
+                    <div class="content is-large">
+                      <div class="content is-large mt-0 mb-4">Buzz In List</div>
+                      <button id="resetBtn" class="button is-danger m-0">
+                        Reset
+                      </button>
+                      <div class="content">
+                        <ol id="userList" class="text"></ol>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script>
+    const socket = io();
+
+    const reset = document.getElementById("resetBtn");
+    const list = document.getElementById("userList");
+
+    reset.addEventListener("click", (e) => {
+      // when reset button is pressed, send reset to all devices and clear
+      // list of devices
+      e.preventDefault();
+      list.innerHTML = "";
+      socket.emit("reset");
+    });
+
+    socket.on("buzzed", (usr) => {
+      // listen for devices buzzing in
+
+      // create a list element
+      let user = document.createElement("li");
+      // add username to element
+      user.textContent = usr;
+      // add element to end of buzzed-in list
+      list.appendChild(user);
+    });
+  </script>
+</html>
